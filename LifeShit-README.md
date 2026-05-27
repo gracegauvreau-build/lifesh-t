@@ -38,7 +38,7 @@ Things I scoped out for v1 but would tackle next:
 
 ## Tech
 
-Built with [stack — fill this in: React Native? Expo? Just web prototype?] using AI-assisted coding tools. I'm a self-taught builder — design instinct came from years of PM work, code came from pairing with AI and shipping fast.
+Web prototype built using AI-assisted coding tools (Claude Opus 4.7). I'm a self-taught builder — design instinct came from years of PM work, code came from pairing with AI and shipping fast.
 
 ## Why I'm sharing this publicly
 
