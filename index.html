@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Life Sh*t">
+<meta name="theme-color" content="#F5F1EA">
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23F5F1EA'/><text x='90' y='118' font-family='Georgia,serif' font-size='90' font-style='italic' fill='%235C6B5C' text-anchor='middle'>L</text></svg>">
+<title>Life Sh*t</title>
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --bg-elev: #FBF8F2;
+    --bg-card: #FFFFFF;
+    --ink: #2C2A26;
+    --ink-soft: #6B6862;
+    --ink-faint: #A09C95;
+    --line: rgba(44, 42, 38, 0.08);
+    --line-strong: rgba(44, 42, 38, 0.16);
+    --accent: #5C6B5C;
+    --accent-soft: #E8EBE4;
+    --wedding-bg: #F5E6EA;
+    --wedding-fg: #6B3145;
+    --home-bg: #E4EBE2;
+    --home-fg: #34503C;
+    --errands-bg: #F2E5D0;
+    --errands-fg: #6B4A1E;
+    --personal-bg: #E8E4F0;
+    --personal-fg: #3C3460;
+    --danger: #8B3A2F;
+    --success: #4A6B3D;
+    --shadow: 0 1px 2px rgba(44,42,38,0.04);
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 18px;
+    --r-xl: 24px;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1816;
+      --bg-elev: #232120;
+      --bg-card: #2A2826;
+      --ink: #EDE9E0;
+      --ink-soft: #A8A39A;
+      --ink-faint: #6E6963;
+      --line: rgba(237, 233, 224, 0.08);
+      --line-strong: rgba(237, 233, 224, 0.16);
+      --accent: #92A48D;
+      --accent-soft: #2F3530;
+      --wedding-bg: #3D2630;
+      --wedding-fg: #E8B6C5;
+      --home-bg: #253028;
+      --home-fg: #A8C2A0;
+      --errands-bg: #3A2D1C;
+      --errands-fg: #DBB67C;
+      --personal-bg: #2A2538;
+      --personal-fg: #BAB0D8;
+      --danger: #D67A6A;
+      --success: #8FAE7C;
+    }
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow-x: hidden; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  button, input, select, textarea {
+    font-family: inherit; font-size: inherit; color: inherit;
+  }
+  button { cursor: pointer; border: none; background: none; padding: 0; }
+
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 16px 20px 100px;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 8px 0 24px;
+  }
+  .greeting {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 32px;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+  }
+  .date {
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* QUICK ADD */
+  .quick-add {
+    display: flex; gap: 8px; margin-bottom: 24px;
+    background: var(--bg-card);
+    border: 0.5px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 6px;
+    box-shadow: var(--shadow);
+  }
+  .quick-add input {
+    flex: 1; height: 44px; padding: 0 14px;
+    border: none; background: transparent;
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+  }
+  .quick-add input::placeholder {
+    color: var(--ink-faint);
+    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 17px;
+  }
+  .add-btn {
+    width: 44px; height: 44px;
+    border-radius: var(--r-md);
+    background: var(--ink);
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.1s, background 0.2s;
+  }
+  .add-btn:active { transform: scale(0.93); }
+  .add-btn svg { width: 18px; height: 18px; }
+
+  /* TAB BAR */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid var(--line);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tab.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .tab .badge {
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 11px;
+    border-radius: 999px;
+    padding: 0 6px;
+    min-width: 18px;
+    text-align: center;
+    line-height: 16px;
+  }
+  .tab:not(.active) .badge {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  /* VIEW SECTIONS */
+  .view { display: none; animation: fadeIn 0.2s ease; }
+  .view.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin: 24px 0 8px;
+    font-weight: 400;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* CATEGORY GROUP within sections */
+  .cat-group { margin-bottom: 14px; }
+  .cat-group:last-child { margin-bottom: 0; }
+  .cat-group-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin: 4px 0 6px;
+    font-weight: 500;
+  }
+  .cat-group-header.wedding { background: var(--wedding-bg); color: var(--wedding-fg); }
+  .cat-group-header.home    { background: var(--home-bg);    color: var(--home-fg); }
+  .cat-group-header.errands { background: var(--errands-bg); color: var(--errands-fg); }
+  .cat-group-header.personal{ background: var(--personal-bg); color: var(--personal-fg); }
+  .cat-group .task-list { margin: 0; }
+
+  /* TASK ROW */
+  .task-list { list-style: none; padding: 0; margin: 0; }
+  .task-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 0;
+    border-bottom: 0.5px solid var(--line);
+    cursor: pointer;
+  }
+  .task-item:last-child { border-bottom: none; }
+  .task-item:active { background: var(--accent-soft); margin: 0 -8px; padding: 14px 8px; border-radius: var(--r-sm); }
+  .checkbox {
+    width: 22px; height: 22px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 50%;
+    flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .checkbox.checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .checkbox.checked svg { stroke: white; width: 12px; height: 12px; }
+  .checkbox:not(.checked) svg { display: none; }
+  .task-body { flex: 1; min-width: 0; }
+  .task-title {
+    font-size: 15px;
+    margin: 0 0 4px;
+    line-height: 1.35;
+    color: var(--ink);
+    word-wrap: break-word;
+  }
+  .task-item .checked-row .task-title {
+    text-decoration: line-through;
+    color: var(--ink-faint);
+  }
+  .task-meta {
+    display: flex; gap: 8px; align-items: center;
+    font-size: 12px; color: var(--ink-soft);
+    flex-wrap: wrap;
+  }
+  .pill {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+  }
+  .pill-wedding { background: var(--wedding-bg); color: var(--wedding-fg); }
+  .pill-home { background: var(--home-bg); color: var(--home-fg); }
+  .pill-errands { background: var(--errands-bg); color: var(--errands-fg); }
+  .pill-personal { background: var(--personal-bg); color: var(--personal-fg); }
+  .task-due {
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .task-due.overdue { color: var(--danger); }
+  .task-note-icon {
+    color: var(--ink-faint);
+    display: inline-flex;
+  }
+  .source-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* CATEGORY GRID */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .cat-card {
+    background: var(--bg-card);
+    border: 0.5px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 18px 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.1s;
+  }
+  .cat-card:active { transform: scale(0.98); }
+  .cat-card-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .cat-swatch {
+    width: 36px; height: 36px;
+    border-radius: var(--r-md);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cat-swatch svg { width: 18px; height: 18px; }
+  .cat-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 20px;
+    margin: 0;
+    color: var(--ink);
+  }
+  .cat-stats {
+    display: flex; gap: 16px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .cat-stat-num {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* CATEGORY DETAIL */
+  .cat-detail-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .back-btn {
+    color: var(--ink-soft);
+    display: flex; align-items: center; gap: 4px;
+    font-size: 14px;
+    padding: 6px 10px 6px 0;
+  }
+  .cat-detail-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 28px;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  /* EMPTY STATE */
+  .empty {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--ink-faint);
+    font-size: 13px;
+  }
+  .empty-display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+
+  /* MODAL */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 42, 38, 0.4);
+    z-index: 100;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-backdrop.open { display: flex; animation: fadeIn 0.2s ease; }
+  .modal {
+    background: var(--bg-elev);
+    width: 100%;
+    max-width: 480px;
+    border-radius: var(--r-xl) var(--r-xl) 0 0;
+    padding: 20px 20px calc(20px + env(safe-area-inset-bottom));
+    max-height: 88vh;
+    overflow-y: auto;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .modal-handle {
+    width: 36px; height: 4px;
+    background: var(--line-strong);
+    border-radius: 2px;
+    margin: 0 auto 16px;
+  }
+  .modal-title-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--ink);
+    padding: 8px 0;
+    border-bottom: 0.5px solid var(--line);
+    margin-bottom: 16px;
+    outline: none;
+  }
+  .modal-section {
+    margin-bottom: 16px;
+  }
+  .modal-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .modal-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .chip {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--bg-card);
+    border: 0.5px solid var(--line);
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .chip.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .chip.cat-chip.active.wedding { background: var(--wedding-fg); border-color: var(--wedding-fg); }
+  .chip.cat-chip.active.home { background: var(--home-fg); border-color: var(--home-fg); }
+  .chip.cat-chip.active.errands { background: var(--errands-fg); border-color: var(--errands-fg); }
+  .chip.cat-chip.active.personal { background: var(--personal-fg); border-color: var(--personal-fg); }
+  .modal-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 0.5px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--bg-card);
+    color: var(--ink);
+    font-size: 14px;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 0.5px solid var(--line);
+  }
+  .modal-btn {
+    flex: 1;
+    height: 46px;
+    border-radius: var(--r-md);
+    font-size: 14px;
+    transition: transform 0.1s;
+  }
+  .modal-btn:active { transform: scale(0.97); }
+  .modal-btn.save {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .modal-btn.delete {
+    color: var(--danger);
+    background: transparent;
+    border: 0.5px solid var(--line);
+    flex: 0 0 100px;
+  }
+  .modal-btn.cancel {
+    background: var(--bg-card);
+    color: var(--ink);
+    border: 0.5px solid var(--line);
+  }
+  .date-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 0.5px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--bg-card);
+    color: var(--ink);
+    font-size: 14px;
+    outline: none;
+  }
+
+  /* SETTINGS / EXPORT */
+  .settings-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0;
+    border-bottom: 0.5px solid var(--line);
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-label { font-size: 14px; color: var(--ink); }
+  .settings-sublabel { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .settings-btn {
+    padding: 8px 14px;
+    border-radius: var(--r-md);
+    border: 0.5px solid var(--line-strong);
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--bg-card);
+  }
+  .settings-btn.danger { color: var(--danger); }
+
+  /* RIPPLE/SUBTLE TOUCH */
+  @media (hover: hover) {
+    .cat-card:hover { border-color: var(--line-strong); }
+    .tab:not(.active):hover { background: var(--accent-soft); color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <h1 class="greeting" id="greeting" style="cursor:pointer;" title="tap for a new greeting">Hello, Grace</h1>
+    <span class="date" id="date">—</span>
+  </div>
+
+  <form class="quick-add" id="quickAddForm" onsubmit="return false;">
+    <input type="text" id="quickAddInput" placeholder="add something..." autocomplete="off" autocapitalize="sentences" enterkeyhint="done" />
+    <button type="submit" class="add-btn" id="addBtn" aria-label="Add task">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </form>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-view="today">Overview</button>
+    <button class="tab" data-view="categories">Categories</button>
+    <button class="tab" data-view="completed">Completed</button>
+    <button class="tab" data-view="settings">⚙</button>
+  </div>
+
+  <!-- OVERVIEW VIEW -->
+  <div class="view active" id="view-today">
+    <div id="today-overdue"></div>
+    <div class="section-label">Today</div>
+    <div id="today-list"></div>
+    <div class="section-label">This week</div>
+    <div id="week-list"></div>
+    <div class="section-label">Next week</div>
+    <div id="nextweek-list"></div>
+    <div class="section-label">Someday</div>
+    <div id="someday-list"></div>
+  </div>
+
+  <!-- COMPLETED VIEW -->
+  <div class="view" id="view-completed">
+    <ul class="task-list" id="completed-list"></ul>
+  </div>
+
+  <!-- CATEGORIES VIEW -->
+  <div class="view" id="view-categories">
+    <div class="cat-grid" id="cat-grid"></div>
+  </div>
+
+  <!-- CATEGORY DETAIL -->
+  <div class="view" id="view-cat-detail">
+    <div class="cat-detail-header">
+      <button class="back-btn" id="cat-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </button>
+      <h2 class="cat-detail-title" id="cat-detail-title">Category</h2>
+    </div>
+    <ul class="task-list" id="cat-detail-list"></ul>
+  </div>
+
+  <!-- SETTINGS VIEW -->
+  <div class="view" id="view-settings">
+    <div class="section-label">Your data</div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Export everything</div>
+        <div class="settings-sublabel">Download a backup file</div>
+      </div>
+      <button class="settings-btn" id="exportBtn">Export</button>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Import from backup</div>
+        <div class="settings-sublabel">Restore from a previous export</div>
+      </div>
+      <button class="settings-btn" id="importBtn">Import</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none">
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Add demo tasks</div>
+        <div class="settings-sublabel">Refill with example tasks</div>
+      </div>
+      <button class="settings-btn" id="demoBtn">Add demo</button>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Clear everything</div>
+        <div class="settings-sublabel">Delete all tasks. Cannot be undone.</div>
+      </div>
+      <button class="settings-btn danger" id="clearBtn">Clear</button>
+    </div>
+    <div class="section-label">About</div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Life Sh*t</div>
+        <div class="settings-sublabel">All the stuff you've gotta do. v1.0</div>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Install to home screen</div>
+        <div class="settings-sublabel">Safari: Share → Add to Home Screen</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <input type="text" class="modal-title-input" id="modalTitle" placeholder="Task name" />
+
+    <div class="modal-section">
+      <label class="modal-label">Category</label>
+      <div class="modal-row" id="modalCats"></div>
+    </div>
+
+    <div class="modal-section">
+      <label class="modal-label">Due</label>
+      <div class="modal-row" id="modalDuePresets">
+        <button class="chip" data-due="0">Today</button>
+        <button class="chip" data-due="1">Tomorrow</button>
+        <button class="chip" data-due="7">Next week</button>
+        <button class="chip" data-due="null">Someday</button>
+      </div>
+      <div style="margin-top: 10px;">
+        <input type="date" class="date-input" id="modalDate" />
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <label class="modal-label">Notes</label>
+      <textarea class="modal-textarea" id="modalNote" placeholder="Anything you want to remember..."></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn delete" id="modalDelete">Delete</button>
+      <button class="modal-btn cancel" id="modalCancel">Cancel</button>
+      <button class="modal-btn save" id="modalSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ STATE ============
+const STORAGE_KEY = 'tend.tasks.v1';
+const CATS = [
+  { id: 'wedding', name: 'Wedding', icon: 'heart' },
+  { id: 'home', name: 'Home', icon: 'home' },
+  { id: 'errands', name: 'Errands', icon: 'cart' },
+  { id: 'personal', name: 'Personal', icon: 'user' }
+];
+
+const ICONS = {
+  heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
+  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+  calendar: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  note: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'
+};
+
+let state = {
+  tasks: [],
+  view: 'today',
+  currentCat: null,
+  editingId: null
+};
+
+// ============ STORAGE ============
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      state.tasks = JSON.parse(raw);
+      return true;
+    }
+  } catch (e) { console.error(e); }
+  return false;
+}
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
+  } catch (e) { console.error(e); }
+}
+
+function seedDemo() {
+  const today = isoToday();
+  const offset = (d) => isoFromOffset(d);
+  state.tasks = [
+    { id: id(), title: 'Follow up with Monserate on linen rentals', cat: 'wedding', due: offset(-2), done: false, note: 'They said they\'d email by Monday', created: Date.now() },
+    { id: id(), title: 'Renew driver\'s license', cat: 'personal', due: offset(-1), done: false, note: '', created: Date.now() },
+    { id: id(), title: 'Pick up dry cleaning', cat: 'errands', due: today, done: false, note: '', created: Date.now() },
+    { id: id(), title: 'Order more dish soap + paper towels', cat: 'home', due: today, done: true, note: '', created: Date.now() },
+    { id: id(), title: 'Confirm dentist appointment', cat: 'personal', due: today, done: false, note: 'Call before 5pm', created: Date.now() },
+    { id: id(), title: 'Book J.Andreatta NYC appointment', cat: 'wedding', due: offset(2), done: false, note: 'Best to go Saturday', created: Date.now() },
+    { id: id(), title: 'Schedule HVAC tune-up', cat: 'home', due: offset(4), done: false, note: '', created: Date.now() },
+    { id: id(), title: 'Send hotel block link to East Coast group', cat: 'wedding', due: null, done: false, note: '', created: Date.now() }
+  ];
+  save();
+}
+
+// ============ DATE HELPERS ============
+function isoToday() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function isoFromOffset(days) {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function daysBetween(iso) {
+  if (!iso) return null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const [y, m, d] = iso.split('-').map(Number);
+  const target = new Date(y, m-1, d);
+  return Math.round((target - today) / 86400000);
+}
+function fmtDue(iso) {
+  if (!iso) return null;
+  const diff = daysBetween(iso);
+  if (diff < 0) return Math.abs(diff) + 'd late';
+  if (diff === 0) return 'Today';
+  if (diff === 1) return 'Tomorrow';
+  if (diff < 7) return 'In ' + diff + 'd';
+  if (diff < 14) return 'Next week';
+  if (diff < 60) return new Date(iso + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  return new Date(iso + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function id() { return Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+
+// ============ RENDER ============
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+function taskRow(t) {
+  const cat = CATS.find(c => c.id === t.cat) || CATS[2];
+  const diff = daysBetween(t.due);
+  const overdue = diff !== null && diff < 0 && !t.done;
+  const dueLabel = t.due ? `<span class="task-due ${overdue ? 'overdue' : ''}">${ICONS.calendar}${fmtDue(t.due)}</span>` : '';
+  const noteIcon = t.note ? `<span class="task-note-icon">${ICONS.note}</span>` : '';
+  return `<li class="task-item ${t.done ? 'checked-row' : ''}" data-id="${t.id}">
+    <div class="checkbox ${t.done ? 'checked' : ''}" data-toggle="${t.id}">${ICONS.check}</div>
+    <div class="task-body" data-edit="${t.id}">
+      <p class="task-title">${escapeHtml(t.title)}</p>
+      <div class="task-meta">
+        <span class="pill pill-${cat.id}">${cat.name}</span>
+        ${dueLabel}
+        ${noteIcon}
+      </div>
+    </div>
+  </li>`;
+}
+
+function categoryCard(cat) {
+  const tasks = state.tasks.filter(t => t.cat === cat.id);
+  const open = tasks.filter(t => !t.done).length;
+  const overdue = tasks.filter(t => !t.done && t.due && daysBetween(t.due) < 0).length;
+  return `<button class="cat-card" data-cat="${cat.id}">
+    <div class="cat-card-header">
+      <div class="cat-swatch pill-${cat.id}">${ICONS[cat.icon]}</div>
+      <h3 class="cat-name">${cat.name}</h3>
+    </div>
+    <div class="cat-stats">
+      <div><span class="cat-stat-num">${open}</span>open</div>
+      ${overdue ? `<div><span class="cat-stat-num" style="color: var(--danger);">${overdue}</span>late</div>` : ''}
+    </div>
+  </button>`;
+}
+
+// ============ GREETINGS ============
+const GREETINGS = {
+  morning: [
+    'morning, queen',
+    'rise & grind, grace',
+    'good morning, gorgeous',
+    'hi early bird',
+    'morning, you'
+  ],
+  afternoon: [
+    'hi grace',
+    'hello, you',
+    'what\'s the damage',
+    'let\'s go, grace',
+    'afternoon, queen',
+    'hey there'
+  ],
+  evening: [
+    'evening, queen',
+    'wind it down, grace',
+    'hi, night owl',
+    'good evening',
+    'still going, huh'
+  ],
+  late: [
+    'go to bed, grace',
+    'it\'s late, queen',
+    'one more thing?',
+    'still up?'
+  ],
+  overdue: [
+    'oof, grace',
+    'we\'ve got some catching up',
+    'past due, queen',
+    'let\'s tackle these'
+  ]
+};
+
+function pickGreeting() {
+  const h = new Date().getHours();
+  // If lots of overdue, occasionally surface that vibe
+  const overdueCount = state.tasks.filter(t => !t.done && t.due && daysBetween(t.due) < 0).length;
+  let bucket;
+  if (overdueCount >= 3 && Math.random() < 0.4) {
+    bucket = 'overdue';
+  } else if (h < 5) bucket = 'late';
+  else if (h < 12) bucket = 'morning';
+  else if (h < 17) bucket = 'afternoon';
+  else if (h < 22) bucket = 'evening';
+  else bucket = 'late';
+  const pool = GREETINGS[bucket];
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function render() {
+  // Greeting only set once per session (already set on load)
+  if (!document.getElementById('greeting').dataset.set) {
+    document.getElementById('greeting').textContent = pickGreeting();
+    document.getElementById('greeting').dataset.set = '1';
+  }
+
+  // Date
+  const d = new Date();
+  document.getElementById('date').textContent = d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+
+  // Group a list of tasks by category, render each group with a colored header.
+  // Returns an HTML string (empty string if no tasks).
+  function groupByCat(tasks, emptyMsg) {
+    if (!tasks.length) return `<ul class="task-list"><li class="empty">${emptyMsg}</li></ul>`;
+    const groups = CATS.map(cat => ({
+      cat,
+      items: tasks.filter(t => t.cat === cat.id).sort((a, b) => {
+        const ad = a.due ? daysBetween(a.due) : 9999;
+        const bd = b.due ? daysBetween(b.due) : 9999;
+        return ad - bd;
+      })
+    })).filter(g => g.items.length);
+    return groups.map(g => `
+      <div class="cat-group">
+        <div class="cat-group-header ${g.cat.id}">${g.cat.name}</div>
+        <ul class="task-list">${g.items.map(taskRow).join('')}</ul>
+      </div>
+    `).join('');
+  }
+
+  // Overview view — excludes completed tasks (those live in Completed tab now)
+  const overdue = state.tasks.filter(t => !t.done && t.due && daysBetween(t.due) < 0)
+    .sort((a, b) => daysBetween(a.due) - daysBetween(b.due));
+  const today = state.tasks.filter(t => !t.done && t.due && daysBetween(t.due) === 0);
+  const week = state.tasks.filter(t => !t.done && t.due && daysBetween(t.due) > 0 && daysBetween(t.due) < 7);
+  const nextWeek = state.tasks.filter(t => !t.done && t.due && daysBetween(t.due) >= 7 && daysBetween(t.due) < 14);
+  const someday = state.tasks.filter(t => !t.done && !t.due);
+
+  const overdueEl = document.getElementById('today-overdue');
+  if (overdue.length) {
+    overdueEl.innerHTML = `<div class="section-label" style="color: var(--danger);">Overdue</div>${groupByCat(overdue, 'nothing overdue')}`;
+  } else {
+    overdueEl.innerHTML = '';
+  }
+
+  document.getElementById('today-list').innerHTML = groupByCat(today, 'nothing scheduled');
+  document.getElementById('week-list').innerHTML = groupByCat(week, 'no tasks this week');
+  document.getElementById('nextweek-list').innerHTML = groupByCat(nextWeek, 'no tasks next week');
+  document.getElementById('someday-list').innerHTML = groupByCat(someday, 'no someday tasks');
+
+  // Completed view — most recently completed first (by due date, then by created)
+  const completed = state.tasks.filter(t => t.done).sort((a, b) => {
+    const ad = a.due ? daysBetween(a.due) : -9999;
+    const bd = b.due ? daysBetween(b.due) : -9999;
+    return bd - ad;
+  });
+  document.getElementById('completed-list').innerHTML = completed.length
+    ? completed.map(taskRow).join('')
+    : `<li class="empty"><div class="empty-display">Nothing checked off yet</div>completed tasks will show up here</li>`;
+
+  // Categories
+  document.getElementById('cat-grid').innerHTML = CATS.map(categoryCard).join('');
+
+  // Category detail
+  if (state.currentCat) {
+    const cat = CATS.find(c => c.id === state.currentCat);
+    document.getElementById('cat-detail-title').textContent = cat.name;
+    const list = state.tasks.filter(t => t.cat === state.currentCat).sort((a, b) => {
+      if (a.done !== b.done) return a.done ? 1 : -1;
+      const ad = a.due ? daysBetween(a.due) : 9999;
+      const bd = b.due ? daysBetween(b.due) : 9999;
+      return ad - bd;
+    });
+    document.getElementById('cat-detail-list').innerHTML = list.length
+      ? list.map(taskRow).join('')
+      : `<li class="empty"><div class="empty-display">All quiet here</div>add a task above</li>`;
+  }
+}
+
+// ============ VIEW SWITCHING ============
+function switchView(name) {
+  state.view = name;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  const tab = document.querySelector('.tab[data-view="' + name + '"]');
+  if (tab) tab.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ============ TASK ACTIONS ============
+function toggleTask(taskId) {
+  const t = state.tasks.find(x => x.id === taskId);
+  if (t) {
+    t.done = !t.done;
+    save();
+    render();
+  }
+}
+
+function addTask(title) {
+  const trimmed = title.trim();
+  if (!trimmed) return;
+  state.tasks.unshift({
+    id: id(),
+    title: trimmed,
+    cat: 'errands',
+    due: isoToday(),
+    done: false,
+    note: '',
+    created: Date.now()
+  });
+  save();
+  render();
+}
+
+// ============ EDIT MODAL ============
+function openModal(taskId) {
+  const t = state.tasks.find(x => x.id === taskId);
+  if (!t) return;
+  state.editingId = taskId;
+  document.getElementById('modalTitle').value = t.title;
+  document.getElementById('modalNote').value = t.note || '';
+  document.getElementById('modalDate').value = t.due || '';
+
+  // Render category chips
+  document.getElementById('modalCats').innerHTML = CATS.map(c => `
+    <button class="chip cat-chip ${t.cat === c.id ? 'active ' + c.id : ''}" data-cat="${c.id}">${c.name}</button>
+  `).join('');
+
+  // Highlight active due preset
+  document.querySelectorAll('#modalDuePresets .chip').forEach(chip => chip.classList.remove('active'));
+  if (t.due === null) document.querySelector('#modalDuePresets .chip[data-due="null"]')?.classList.add('active');
+
+  document.getElementById('modalBackdrop').classList.add('open');
+  setTimeout(() => document.getElementById('modalTitle').focus(), 100);
+}
+
+function closeModal() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+  state.editingId = null;
+}
+
+function saveModal() {
+  const t = state.tasks.find(x => x.id === state.editingId);
+  if (!t) return;
+  t.title = document.getElementById('modalTitle').value.trim() || 'Untitled';
+  t.note = document.getElementById('modalNote').value.trim();
+  const dateVal = document.getElementById('modalDate').value;
+  t.due = dateVal || null;
+  const activeCat = document.querySelector('#modalCats .chip.active');
+  if (activeCat) t.cat = activeCat.dataset.cat;
+  save();
+  render();
+  closeModal();
+}
+
+function deleteTask() {
+  if (!state.editingId) return;
+  if (confirm('Delete this task?')) {
+    state.tasks = state.tasks.filter(t => t.id !== state.editingId);
+    save();
+    render();
+    closeModal();
+  }
+}
+
+// ============ EXPORT / IMPORT ============
+function exportData() {
+  const blob = new Blob([JSON.stringify(state.tasks, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'life-sht-backup-' + isoToday() + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (Array.isArray(data)) {
+        if (confirm('Replace all current tasks with the backup? (' + data.length + ' tasks)')) {
+          state.tasks = data;
+          save();
+          render();
+          switchView('today');
+        }
+      } else {
+        alert('That file doesn\'t look like a valid backup.');
+      }
+    } catch (err) {
+      alert('Could not read that file.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ============ EVENT HANDLERS ============
+document.addEventListener('click', (e) => {
+  if (e.target.id === 'greeting') {
+    e.target.textContent = pickGreeting();
+    return;
+  }
+
+  const tab = e.target.closest('.tab');
+  if (tab) {
+    state.currentCat = null;
+    switchView(tab.dataset.view);
+    return;
+  }
+
+  const toggle = e.target.closest('[data-toggle]');
+  if (toggle) {
+    e.stopPropagation();
+    toggleTask(toggle.dataset.toggle);
+    return;
+  }
+
+  const edit = e.target.closest('[data-edit]');
+  if (edit) {
+    openModal(edit.dataset.edit);
+    return;
+  }
+
+  const catCard = e.target.closest('[data-cat]');
+  if (catCard && catCard.classList.contains('cat-card')) {
+    state.currentCat = catCard.dataset.cat;
+    switchView('cat-detail');
+    return;
+  }
+
+  if (e.target.id === 'cat-back' || e.target.closest('#cat-back')) {
+    switchView('categories');
+    return;
+  }
+
+  // Modal interactions
+  const catChip = e.target.closest('#modalCats .chip');
+  if (catChip) {
+    document.querySelectorAll('#modalCats .chip').forEach(c => {
+      c.classList.remove('active', 'wedding', 'home', 'errands', 'personal');
+    });
+    catChip.classList.add('active', catChip.dataset.cat);
+    return;
+  }
+
+  const dueChip = e.target.closest('#modalDuePresets .chip');
+  if (dueChip) {
+    document.querySelectorAll('#modalDuePresets .chip').forEach(c => c.classList.remove('active'));
+    dueChip.classList.add('active');
+    const v = dueChip.dataset.due;
+    if (v === 'null') {
+      document.getElementById('modalDate').value = '';
+    } else {
+      document.getElementById('modalDate').value = isoFromOffset(parseInt(v));
+    }
+    return;
+  }
+});
+
+function handleAdd(e) {
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  const input = document.getElementById('quickAddInput');
+  const val = input.value;
+  if (!val.trim()) {
+    showToast('type something first');
+    return false;
+  }
+  try {
+    addTask(val);
+    input.value = '';
+    input.blur(); // dismiss iOS keyboard
+    showToast('added ✓');
+  } catch (err) {
+    showToast('couldn\'t save: ' + err.message);
+  }
+  return false;
+}
+
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:13px;z-index:200;opacity:0;transition:opacity 0.2s;pointer-events:none;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.opacity = '0'; }, 1500);
+}
+
+// Multiple event types for iOS reliability
+const formEl = document.getElementById('quickAddForm');
+formEl.addEventListener('submit', handleAdd);
+
+const addBtnEl = document.getElementById('addBtn');
+addBtnEl.addEventListener('click', handleAdd);
+
+const inputEl = document.getElementById('quickAddInput');
+inputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.keyCode === 13) {
+    handleAdd(e);
+  }
+});
+
+document.getElementById('modalSave').addEventListener('click', saveModal);
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+document.getElementById('modalDelete').addEventListener('click', deleteTask);
+document.getElementById('modalBackdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'modalBackdrop') closeModal();
+});
+document.getElementById('modalDate').addEventListener('change', () => {
+  document.querySelectorAll('#modalDuePresets .chip').forEach(c => c.classList.remove('active'));
+});
+
+document.getElementById('exportBtn').addEventListener('click', exportData);
+document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change', (e) => {
+  if (e.target.files[0]) importData(e.target.files[0]);
+  e.target.value = '';
+});
+document.getElementById('demoBtn').addEventListener('click', () => {
+  if (confirm('This adds example tasks alongside your existing ones. Continue?')) {
+    const before = state.tasks.length;
+    seedDemo();
+    state.tasks = [...state.tasks]; // already replaced by seedDemo
+    save();
+    render();
+    switchView('today');
+  }
+});
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if (confirm('Delete ALL tasks? This cannot be undone.')) {
+    if (confirm('Really? Last chance.')) {
+      state.tasks = [];
+      save();
+      render();
+      switchView('today');
+    }
+  }
+});
+
+// ============ INIT ============
+if (!load()) {
+  seedDemo();
+}
+render();
+</script>
+</body>
+</html>
